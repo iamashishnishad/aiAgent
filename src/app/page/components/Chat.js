@@ -62,13 +62,13 @@ export default function Home() {
 
   return (
     <div className={`flex items-center justify-center h-screen font-sans ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
-      <div className={`w-3/4 max-w-3xl rounded-lg shadow-lg flex flex-col h-full ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+      <div className={`w-full max-w-4xl rounded-xl shadow-2xl flex flex-col h-full ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-all p-4 sm:p-6`}>
         
-        {/* Dark Mode Toggle Button in Top Left Corner */}
-        <div className="p-4 absolute top-4 right-4">
+        {/* Dark Mode Toggle Button */}
+        <div className="absolute top-4 right-4 sm:p-4">
           <Button
             onClick={() => setDarkMode(!darkMode)}
-            className={`p-2 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-yellow-400'} focus:outline-none`}
+            className={`p-3 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-yellow-400'} focus:outline-none transition-transform duration-300`}
           >
             {darkMode ? (
               <FaSun className="text-white" />
@@ -80,24 +80,21 @@ export default function Home() {
 
         <div
           ref={chatContainerRef}
-          className="flex-1 overflow-y-auto px-6 py-4 space-y-4"
+          className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 space-y-6"
         >
-          <h1 className="text-4xl font-extrabold text-center mb-6">
-            AI Agent
-          </h1>
+          <h1 className="text-3xl sm:text-5xl font-bold text-center mb-8 transition-transform">AI Agent</h1>
 
-          <div className="space-y-4">
+          <div className="space-y-6">
             {history.map((msg, index) => (
               <div
                 key={index}
-                className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} transition-all duration-500 transform ease-in-out
-                  ${msg.type === "user" ? "opacity-100" : "opacity-90"}`}
+                className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} transition-all duration-500 transform ease-in-out`}
                 style={{
                   animation: "slideUp 0.5s ease-out",
                 }}
               >
                 <div
-                  className={`p-4 rounded-lg shadow-lg max-w-xs ${msg.type === "user" ? "bg-blue-600 text-white" : darkMode ? "bg-gray-700 text-white" : "bg-gray-200 text-gray-800"}`}
+                  className={`p-4 rounded-xl shadow-xl max-w-full sm:max-w-lg ${msg.type === "user" ? "bg-blue-600 text-white" : darkMode ? "bg-gray-700 text-white" : "bg-gray-200 text-gray-800"}`}
                   style={{ wordWrap: "break-word" }}
                 >
                   {msg.text}
@@ -107,21 +104,21 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="p-4 bg-white border-t border-gray-300">
-          <div className="flex items-center space-x-4">
+        <div className="bg-white border-t border-gray-300 p-4 sm:p-6">
+          <div className="flex items-center space-x-4 sm:space-x-6">
             <Input
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)} // Update message state
               onKeyDown={handleKeyDown} // Send message on Enter
               placeholder="Type a message..."
-              className={`flex-1 p-4 rounded-lg border ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-700'} focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-lg`}
+              className={`flex-1 p-4 rounded-xl border-2 ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-800'} focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-lg transition-all`}
               style={{ minHeight: "60px" }}
             />
             <Button
               onClick={sendMessage}
               disabled={isLoading}
-              className={`py-3 px-6 rounded-lg ${darkMode ? 'bg-blue-500 text-white hover:bg-blue-400' : 'bg-blue-600 text-white hover:bg-blue-700'} font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400`}
+              className={`py-3 px-6 sm:py-4 sm:px-8 rounded-lg ${darkMode ? 'bg-blue-500 text-white hover:bg-blue-400' : 'bg-blue-600 text-white hover:bg-blue-700'} font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400`}
             >
               {isLoading ? "Loading..." : "Send"}
             </Button>
